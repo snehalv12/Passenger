@@ -1,0 +1,43 @@
+﻿@model MvcAppBaggage.Models.HomeClass
+
+<h2>Index</h2>
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Please enter the following:</h2>
+@using (Html.BeginForm("Subscribe", "PassengerController", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Ship:</td>
+            <td>
+                @Html.TextBoxFor(model => model.shipName)
+            </td>
+        </tr>
+        <tr>
+            <td>Return Date:</td>
+            <td>
+                @Html.TextBoxFor(model => model.returnDate)
+            </td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td>
+                @Html.TextBoxFor(model => model.passengerLastName)
+            </td>
+        </tr>
+        <tr>
+            <td>Cabin:</td>
+            <td>
+                @Html.TextBoxFor(model => model.cabin)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+
+            </td>
+        </tr>
+    </table>
+}
