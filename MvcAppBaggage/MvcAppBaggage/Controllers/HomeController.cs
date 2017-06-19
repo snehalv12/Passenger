@@ -17,12 +17,11 @@ namespace MvcAppBaggage.Controllers
         {
 
             return View();
-            // return RedirectToAction("BaggageDetails","PassengerController");
         }
         [HttpPost]
         public ActionResult Subscribe(HomeClass model)
         {
-            return RedirectToAction("BaggageDetails", "PassengerController", model);
+            return RedirectToAction("BaggageDetails","PassengerController", model);
         }
 
     }
