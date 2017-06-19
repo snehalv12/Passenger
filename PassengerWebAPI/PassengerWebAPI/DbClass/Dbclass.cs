@@ -19,9 +19,9 @@ namespace PassengerWebAPI.DbClass
             return String.Format("{0:yyyy-MM-dd}", date);
         }
 
-        public int RegisterEvent(RegEvent registerEvent)
+        public int RegisterEvent(RegEvent EventRegistration)
         {
-            int eventId = 0;
+            int EventRegId = 0;
 
             try
             {
@@ -30,16 +30,16 @@ namespace PassengerWebAPI.DbClass
                     var cmd = "INSERT INTO RegEvent (Client,ProcessType,Location,DepartDate,ArrivalDate,City,LocationID,Source)VALUES (@Client,@ProcessType,@Location,@DepartDate,@ArrivalDate,@City,@LocationID,@Source);SELECT CAST(scope_identity() AS int)";
                     using (var insertCommand = new SqlCommand(cmd, con))
                     {
-                        insertCommand.Parameters.AddWithValue("@Client", registerEvent.Client);
-                        insertCommand.Parameters.AddWithValue("@ProcessType", registerEvent.ProcessType);
-                        insertCommand.Parameters.AddWithValue("@Location", registerEvent.Location);
-                        insertCommand.Parameters.AddWithValue("@DepartDate", GetDate(registerEvent.DepartDate));
-                        insertCommand.Parameters.AddWithValue("@ArrivalDate", GetDate(registerEvent.ArrivalDate));
-                        insertCommand.Parameters.AddWithValue("@City", registerEvent.City);
-                        insertCommand.Parameters.AddWithValue("@LocationID", registerEvent.LocationID);
-                        insertCommand.Parameters.AddWithValue("@Source", registerEvent.Source);
+                        insertCommand.Parameters.AddWithValue("@Client", EventRegistration.Client);
+                        insertCommand.Parameters.AddWithValue("@ProcessType", EventRegistration.ProcessType);
+                        insertCommand.Parameters.AddWithValue("@Location", EventRegistration.Location);
+                        insertCommand.Parameters.AddWithValue("@DepartDate", GetDate(EventRegistration.DepartDate));
+                        insertCommand.Parameters.AddWithValue("@ArrivalDate", GetDate(EventRegistration.ArrivalDate));
+                        insertCommand.Parameters.AddWithValue("@City", EventRegistration.City);
+                        insertCommand.Parameters.AddWithValue("@LocationID", EventRegistration.LocationID);
+                        insertCommand.Parameters.AddWithValue("@Source", EventRegistration.Source);
                         con.Open();
-                        eventId = (int)insertCommand.ExecuteScalar();
+                        EventRegId = (int)insertCommand.ExecuteScalar();
                     }
                 }
             }
@@ -48,16 +48,16 @@ namespace PassengerWebAPI.DbClass
 
                 throw;
             }
-            return eventId;
+            return EventRegId;
         }
 
-        public bool RegisterGuest(RegGuest registerGuest)
+        public bool RegisterGuest(RegGuest GuestRegistration)
         {
-            int eventGuesId = 0;
+            int EventGuest = 0;
 
             try
             {
-                if (registerGuest.Segments.Count > 0)
+                if (GuestRegistration.Segments.Count > 0)
                 {
                     using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["Conn"].ConnectionString))
                     {
@@ -66,38 +66,38 @@ namespace PassengerWebAPI.DbClass
                             + "VALUES (@Client,@ProcessType,@EventId,@FirstName,@LastName,@MiddleName,@EmailAddress,@Phone,@NumberOfBags,@Status,@Gender,@BirthDate,@PassportCitizenship,@PassportNumber,@PassportExpiration,@PassportCountry,@Opt1,@FirstNameAlias,@LastNameAlias,@Eligible,@PartyGroupID,@ArrivalDate,@DepartDate,@DepartGroup,@GuestType,@Segments);SELECT CAST(scope_identity() AS int)";
                         using (var insertCommand = new SqlCommand(cmd, con))
                         {
-                            insertCommand.Parameters.AddWithValue("@Client", registerGuest.Client);
-                            insertCommand.Parameters.AddWithValue("@ProcessType", registerGuest.ProcessType);
-                            insertCommand.Parameters.AddWithValue("@EventId", registerGuest.EventId);
-                            insertCommand.Parameters.AddWithValue("@DepartDate", GetDate(registerGuest.DepartDate));
-                            insertCommand.Parameters.AddWithValue("@ArrivalDate", GetDate(registerGuest.ArrivalDate));
-                            insertCommand.Parameters.AddWithValue("@FirstName", registerGuest.FirstName);
-                            insertCommand.Parameters.AddWithValue("@LastName", registerGuest.LastName);
-                            insertCommand.Parameters.AddWithValue("@MiddleName", registerGuest.MiddleName);
-                            insertCommand.Parameters.AddWithValue("@EmailAddress", registerGuest.EmailAddress);
-                            insertCommand.Parameters.AddWithValue("@Phone", registerGuest.Phone);
-                            insertCommand.Parameters.AddWithValue("@NumberOfBags", registerGuest.NumberOfBags);
-                            insertCommand.Parameters.AddWithValue("@Status", registerGuest.Status);
-                            insertCommand.Parameters.AddWithValue("@Gender", registerGuest.Gender);
-                            insertCommand.Parameters.AddWithValue("@BirthDate", GetDate(registerGuest.BirthDate));
-                            insertCommand.Parameters.AddWithValue("@PassportCitizenship", registerGuest.PassportCitizenship);
-                            insertCommand.Parameters.AddWithValue("@PassportNumber", registerGuest.PassportNumber);
-                            insertCommand.Parameters.AddWithValue("@PassportExpiration", GetDate(registerGuest.PassportExpiration));
-                            insertCommand.Parameters.AddWithValue("@PassportCountry", registerGuest.PassportCountry);
-                            insertCommand.Parameters.AddWithValue("@Opt1", registerGuest.Opt1);
-                            insertCommand.Parameters.AddWithValue("@FirstNameAlias", registerGuest.FirstNameAlias);
-                            insertCommand.Parameters.AddWithValue("@LastNameAlias", registerGuest.LastNameAlias);
-                            insertCommand.Parameters.AddWithValue("@Eligible", registerGuest.Eligible);
-                            insertCommand.Parameters.AddWithValue("@PartyGroupID", registerGuest.PartyGroupID);
-                            insertCommand.Parameters.AddWithValue("@DepartGroup", registerGuest.DepartGroup);
-                            insertCommand.Parameters.AddWithValue("@GuestType", registerGuest.GuestType);
-                            insertCommand.Parameters.AddWithValue("@Segments", registerGuest.Segments.Count);
+                            insertCommand.Parameters.AddWithValue("@Client", GuestRegistration.Client);
+                            insertCommand.Parameters.AddWithValue("@ProcessType", GuestRegistration.ProcessType);
+                            insertCommand.Parameters.AddWithValue("@EventId", GuestRegistration.EventId);
+                            insertCommand.Parameters.AddWithValue("@DepartDate", GetDate(GuestRegistration.DepartDate));
+                            insertCommand.Parameters.AddWithValue("@ArrivalDate", GetDate(GuestRegistration.ArrivalDate));
+                            insertCommand.Parameters.AddWithValue("@FirstName", GuestRegistration.FirstName);
+                            insertCommand.Parameters.AddWithValue("@LastName", GuestRegistration.LastName);
+                            insertCommand.Parameters.AddWithValue("@MiddleName", GuestRegistration.MiddleName);
+                            insertCommand.Parameters.AddWithValue("@EmailAddress", GuestRegistration.EmailAddress);
+                            insertCommand.Parameters.AddWithValue("@Phone", GuestRegistration.Phone);
+                            insertCommand.Parameters.AddWithValue("@NumberOfBags", GuestRegistration.NumberOfBags);
+                            insertCommand.Parameters.AddWithValue("@Status", GuestRegistration.Status);
+                            insertCommand.Parameters.AddWithValue("@Gender", GuestRegistration.Gender);
+                            insertCommand.Parameters.AddWithValue("@BirthDate", GetDate(GuestRegistration.BirthDate));
+                            insertCommand.Parameters.AddWithValue("@PassportCitizenship", GuestRegistration.PassportCitizenship);
+                            insertCommand.Parameters.AddWithValue("@PassportNumber", GuestRegistration.PassportNumber);
+                            insertCommand.Parameters.AddWithValue("@PassportExpiration", GetDate(GuestRegistration.PassportExpiration));
+                            insertCommand.Parameters.AddWithValue("@PassportCountry", GuestRegistration.PassportCountry);
+                            insertCommand.Parameters.AddWithValue("@Opt1", GuestRegistration.Opt1);
+                            insertCommand.Parameters.AddWithValue("@FirstNameAlias", GuestRegistration.FirstNameAlias);
+                            insertCommand.Parameters.AddWithValue("@LastNameAlias", GuestRegistration.LastNameAlias);
+                            insertCommand.Parameters.AddWithValue("@Eligible", GuestRegistration.Eligible);
+                            insertCommand.Parameters.AddWithValue("@PartyGroupID", GuestRegistration.PartyGroupID);
+                            insertCommand.Parameters.AddWithValue("@DepartGroup", GuestRegistration.DepartGroup);
+                            insertCommand.Parameters.AddWithValue("@GuestType", GuestRegistration.GuestType);
+                            insertCommand.Parameters.AddWithValue("@Segments", GuestRegistration.Segments.Count);
 
 
                             con.Open();
-                            eventGuesId = (int)insertCommand.ExecuteScalar();
+                            EventGuest = (int)insertCommand.ExecuteScalar();
                         }
-                        SaveSegments(eventGuesId, registerGuest.Segments);
+                        SavingSegments(EventGuest, GuestRegistration.Segments);
                     }
                 }
             }
@@ -106,10 +106,10 @@ namespace PassengerWebAPI.DbClass
 
                 throw;
             }
-            return eventGuesId > 0;
+            return EventGuest > 0;
         }
 
-        public void SaveSegments(int eventGuestId, List<FlightSegment> segments)
+        public void SavingSegments(int eventGuestId, List<FlightSegment> segments)
         {
             try
             {

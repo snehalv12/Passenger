@@ -16,19 +16,19 @@ namespace PassengerWebAPI.Controllers
     {
         // GET: Passenger
         [System.Web.Http.HttpPost]
-        public IHttpActionResult RegisterEvent(RegEvent registerEvent)
+        public IHttpActionResult RegisterEvent(RegEvent EventRegistration)
         {
             Dbclass passenger = new Dbclass();
-            int EventId = passenger.RegisterEvent(registerEvent);
+            int EventId = passenger.RegisterEvent(EventRegistration);
             return Ok("Event Id:" + EventId);
         }
 
 
         [System.Web.Http.HttpPost]
-        public IHttpActionResult RegisterGuest(RegGuest guest)
+        public IHttpActionResult RegisterGuest(RegGuest GuestRegistration)
         {
             Dbclass passenger = new Dbclass();
-            bool registeredguest = passenger.RegisterGuest(guest);
+            bool registeredguest = passenger.RegisterGuest(GuestRegistration);
             return Ok(registeredguest);
         }
 
